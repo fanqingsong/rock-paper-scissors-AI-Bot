@@ -3,7 +3,7 @@ import numpy as np
 from keras_squeezenet import SqueezeNet
 from keras.optimizers import Adam
 from keras.utils import np_utils
-from keras.layers import Activation, Dropout, Convolution2D, GlobalAveragePooling2D
+from keras.layers import Activation, Dropout, Convolution2D, GlobalAveragePooling2D, Dense
 from keras.models import Sequential
 import tensorflow as tf
 import os
@@ -31,6 +31,7 @@ def get_model():
         Convolution2D(NUM_CLASSES, (1, 1), padding='valid'),
         Activation('relu'),
         GlobalAveragePooling2D(),
+        Dense(output_dim=3),
         Activation('softmax')
     ])
     return model

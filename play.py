@@ -42,6 +42,10 @@ model = load_model("rock-paper-scissors-model.h5")
 
 cap = cv2.VideoCapture(0)
 
+# Set properties. Each returns === True on success (i.e. correct resolution)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1260)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
+
 prev_move = None
 
 while True:
@@ -51,11 +55,13 @@ while True:
 
     # rectangle for user to play
     cv2.rectangle(frame, (100, 100), (500, 500), (255, 255, 255), 2)
+
     # rectangle for computer to play
     cv2.rectangle(frame, (800, 100), (1200, 500), (255, 255, 255), 2)
 
     # extract the region of image within the user rectangle
     roi = frame[100:500, 100:500]
+
     img = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (227, 227))
 
@@ -87,6 +93,8 @@ while True:
         icon = cv2.imread(
             "images/{}.png".format(computer_move_name))
         icon = cv2.resize(icon, (400, 400))
+        print(icon.shape)
+        print(frame.shape)
         frame[100:500, 800:1200] = icon
 
     cv2.imshow("Rock Paper Scissors", frame)
